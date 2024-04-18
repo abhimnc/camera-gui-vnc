@@ -1,3 +1,4 @@
+# the balena configuration can be overridden with balena dashboard
 name: camera-capture
 type: sw.application
 description: >-
