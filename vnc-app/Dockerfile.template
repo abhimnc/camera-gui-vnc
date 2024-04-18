@@ -4,16 +4,15 @@ FROM balenalib/raspberry-pi-debian-python
 # managing window controls, and running the X server with XFCE4 desktop environment.
 # Includes tools for process management and camera support.
 RUN install_packages x11vnc x11-utils xvfb wmctrl supervisor xserver-xorg \
-    xserver-xorg-input-evdev xinit xfce4 xfce4-terminal x11-xserver-utils dbus-x11 \
+    xserver-xorg-input-evdev xinit x11-xserver-utils dbus-x11 \
     xterm libcamera-apps-lite libcamera-dev python3 v4l-utils xorg
 
 # x11vnc, x11-utils, xvfb, wmctrl - Support the setup of a virtual X11 environment and management of window controls.
 # supervisor - Used for process control.
 # xserver-xorg, xserver-xorg-input-evdev, xinit - Provide the core X server components.
-# xfce4, xfce4-terminal - Set up the XFCE4 desktop environment.
 # x11-xserver-utils, dbus-x11, xterm - Utilities for better handling and integration of X server.
 # libcamera-apps, libcamera-dev, libcamera-apps-lite, v4l-utils - Enable camera support on Raspberry Pi, for managing and interfacing with camera hardware.
-# NOTE: libcamera-apps AND libcamera-apps-lite have conflicting property. libcamera-apps doesn't work in this case.
+# IMPORTANT NOTE: libcamera-apps AND libcamera-apps-lite have conflicting property. libcamera-apps doesn't work in this case. only libcamera-apps-lite works
 
 # Install additional Python dependencies
 RUN apt-get update && \
@@ -34,6 +33,5 @@ WORKDIR /usr/src/app
 # Copy application code and configuration files into the container
 COPY . .
 COPY supervisor /etc/supervisor
-COPY autostart /etc/xdg/lxsession/LXDE-pi/autostart
 
 CMD ["bash", "start.sh"]
